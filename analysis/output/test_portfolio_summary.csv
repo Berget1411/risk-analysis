@@ -1,0 +1,2 @@
+final_model,predicted_total_claims,actual_total_claims,bootstrap_mean_total_claims,bootstrap_ci_low_95_total_claims,bootstrap_ci_high_95_total_claims
+poisson_no_year,5580.58509893579,5520.0,5576.051919582416,5513.994595480929,5629.659562935612

@@ -1,0 +1,12 @@
+metric,value
+train_rows,1033386.0
+test_rows,291649.0
+train_total_claims,19730.0
+test_total_claims,5520.0
+train_total_exposure,924039.1237037005
+test_total_exposure,260902.63817245763
+train_claim_frequency_per_exposure_year,0.021351909777281856
+test_claim_frequency_per_exposure_year,0.021157317682434697
+train_zero_claim_share,0.9811764432651497
+test_zero_claim_share,0.9813062962670882
+claim_count_dispersion,1.009088837090608
