@@ -199,15 +199,17 @@ But:
 
 These stop downstream work.
 
-| Blocker | Stops |
-|---|---|
-| unresolved data-quality issues | B, C, D, E, F |
-| unclear handling of `Duration` | B, C, D, E |
-| no decision on economic-variable strategy | B finalization, C fairness, D |
-| no locked GLM | D, E, F |
-| no locked XGBoost | D |
-| use of 2025 for tuning or feature selection | invalidates D, E, F |
-| no agreed main model after comparison | E interpretation, F recommendations |
+
+| Blocker                                     | Stops                               |
+| ------------------------------------------- | ----------------------------------- |
+| unresolved data-quality issues              | B, C, D, E, F                       |
+| unclear handling of `Duration`              | B, C, D, E                          |
+| no decision on economic-variable strategy   | B finalization, C fairness, D       |
+| no locked GLM                               | D, E, F                             |
+| no locked XGBoost                           | D                                   |
+| use of 2025 for tuning or feature selection | invalidates D, E, F                 |
+| no agreed main model after comparison       | E interpretation, F recommendations |
+
 
 ## Recommended Working Pattern
 
@@ -263,4 +265,3 @@ If time is limited, do this:
 4. compare on 2024, then evaluate once on 2025
 5. quantify uncertainty
 6. write pricing and segmentation recommendations
-
