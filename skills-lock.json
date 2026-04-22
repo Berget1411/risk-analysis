@@ -1,10 +1,40 @@
 {
   "version": 1,
   "skills": {
+    "pandas-pro": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "66059434cd805de09e273ee3d5ebe20f0014224d4769a46c4b2b2c99b34d28f2"
+    },
+    "plotly": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "c1659137bafbc9e5667a6a34b9de795ee5e33b9b5e014e6cbe7372bd2caa9945"
+    },
     "scikit-learn": {
       "source": "davila7/claude-code-templates",
       "sourceType": "github",
       "computedHash": "f03f68164d506a6cdf7e8cae1e46bd38c0e1327248d9aaeece66cb4b6392a3c7"
+    },
+    "scipy-best-practices": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "computedHash": "11087f45b229564d5aa8e843b8c2abada08fe580760ac392085da6c128aa94af"
+    },
+    "seaborn": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "ad96cba6af5b386be002c83190d447e012ea0fa19b1d47c76c29dd1868e797ba"
+    },
+    "statsmodels": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "ca68f13ee132cd3681864735f623c803db9cc48c390f609fc96ad56400a0f2a7"
+    },
+    "xgboost-lightgbm": {
+      "source": "tondevrel/scientific-agent-skills",
+      "sourceType": "github",
+      "computedHash": "96070562a968899b8fbd4756bb7348647247c9f6834b05737120933e5e9112a8"
     }
   }
 }
