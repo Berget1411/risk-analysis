@@ -56,5 +56,3 @@ uv run python
 ```
 
 Installed libraries include `numpy`, `pandas`, `matplotlib`, `seaborn`, `statsmodels`, `scikit-learn`, and `xgboost`.
-
-test

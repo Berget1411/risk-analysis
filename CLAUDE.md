@@ -28,7 +28,8 @@ The target outcome is a defensible end-to-end analysis that:
   - `A3-segmenterad-beskrivning.ipynb`
   - `A4-samvariation.ipynb`
   - `A5-figurer-och-sammanfattning.ipynb`
-- `src/analysis/preditice` is the current predictive placeholder. Do not rename or reorganize it unless explicitly requested.
+- `src/analysis/predictive/` is the predictive modelling track:
+  - `B1-variabelval-glm.ipynb`
 
 ## Working Rules
 

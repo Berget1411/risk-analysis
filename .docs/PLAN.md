@@ -151,7 +151,7 @@ Syftet i denna fas är att skapa överblick, verifiera datakvalitet och förbere
 Poisson-GLM bör vara huvudmodellen eftersom:
 
 - målet är att modellera antal skador
-- exponeringstiden kan hanteras naturligt via offset
+- exponeringstiden kan hanteras natuärligt via offset
 - modellen är tolkbar och affärsmässigt användbar
 - uppgiften efterfrågar resonemang om effekter, osäkerhet och modellval
 
