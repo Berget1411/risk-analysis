@@ -148,68 +148,76 @@ Syftet i denna fas är att skapa överblick, verifiera datakvalitet och förbere
 
 ## Fas B — Poisson-GLM som huvudmodell
 
-Poisson-GLM bör vara huvudmodellen eftersom:
+Poisson-GLM är huvudmodellen. Antal skador som responsvariabel, log-länk, `Duration` som offset. Tolkbar, affärsmässigt användbar, naturlig för count-data. Fasen delas i två notebooks: B1 (specifikation och variabelval) och B2 (kontroll och tolkning).
 
-- målet är att modellera antal skador
-- exponeringstiden kan hanteras natuärligt via offset
-- modellen är tolkbar och affärsmässigt användbar
-- uppgiften efterfrågar resonemang om effekter, osäkerhet och modellval
+### Kontext från deskriptiv analys
 
-### B.1 Grundspecifikation
+Variabelvalet är i praktiken gjort i Fas A:
 
-Huvudmodellen bör ha en form i stil med:
+- `Omsattning` vald som storleksvariabel (A4: starkast samband med skadefrekvens, 5.6× spridning mellan kvartiler)
+- `Verksamhet` och `GeografisktOmrade` inkluderas additivt (A3: VVS × Storstad stärker varandra, men interaktion testas inte i GLM)
+- `Sjalvrisk` och `Forsakringsbelopp` exkluderade (A4: hög korrelation med omsättning, lågt marginellt informationsvärde)
 
-`AntalSkador ~ C(Verksamhet) + C(GeografisktOmrade) + vald storleksvariabel + ev. C(Ar) + offset(log(Duration))`
+B1 bekräftar dessa val med AIC och valideringsdeviance — den upprepar inte urvalsprocessen.
 
-Den valda storleksvariabeln ska sannolikt vara en log-transformerad version av någon av:
+### B.1 Grundspecifikation och årseffekt (notebook B1)
 
-- `Omsattning`
-- `Forsakringsbelopp`
-- `Sjalvrisk`
+Fyra modeller byggs i sekvens:
 
-eller en begränsad kombination av dem om multikollineariteten bedöms hanterbar.
+| Modell | Specifikation | Syfte |
+|--------|--------------|-------|
+| M0 | Intercept only | Null-baseline som referens |
+| M1 | C(Verksamhet) + C(GeografisktOmrade) | Kategoriska huvudeffekter |
+| M2 | M1 + log(Omsattning) | **Primär slutmodell** |
+| M3 | M2 + C(Ar) | Årseffekt, enbart in-sample |
 
-### B.2 Variabelval
+Alla modeller använder `offset(log(Duration))` och Poisson-familj.
 
-Eftersom uppgiftsbakgrunden explicit lyfter korrelationen mellan ekonomiska variabler ska planen innehålla ett tydligt spår för variabelval:
+**Jämförelse M0–M2:** AIC + valideringsdeviance på 2024. M2 förväntas vara slutmodellen.
 
-- börja med en basmodell med verksamhet och geografi
-- lägg till en ekonomisk variabel i taget
-- jämför modeller med AIC och gärna även BIC eller out-of-sample-mått på valideringsåret
-- kontrollera VIF för att undvika onödigt instabila skattningar
+**M3 separat:** `Ar` är kategorisk och kan inte prediktera osedda år (2024, 2025). M3 jämförs därför enbart in-sample via AIC och årskoefficienter. Syftet är att beskriva om skadefrekvensen förändrats över tid, inte att förbättra prediktion.
 
-Här ska gruppen inte bara fråga vilken modell som får bäst passform, utan också vilken modell som är mest rimlig att tolka i verksamhetskontext.
+**Output från B1:**
+- AIC-tabell för M0–M3
+- Valideringsdeviance för M0–M2
+- Koefficienter och rate ratios för M2
+- Kort motivering av varför M2 väljs som slutmodell
 
-### B.3 Tidsvariation
+### B.2 Modellkontroll och tolkning (notebook B2)
 
-Årseffekt ska testas explicit eftersom uppgiften nämner att skadebeteende kan förändras över tid.
+#### Överdispersion
 
-Två modeller ska därför jämföras:
+Kontrollera deviance/df för M2. Om kvoten är klart större än 1, nämn negativ binomial som alternativ men behåll Poisson som huvudspår.
 
-- Poisson-GLM utan `Ar`
-- Poisson-GLM med `Ar` som kategorisk variabel
+#### Residualplottar
 
-Slutsatsen ska inte bara bygga på in-sample-passform utan på om år förbättrar prediktionen på en senare period.
+Inga residualplottar görs. Med 98 procent nollor i responsvariabeln blir standardresidualplottar oinformativa. Motivera detta i text.
 
-### B.4 Modellkontroll
+#### Rate ratios med konfidensintervall
 
-Följande kontroller ska göras:
+Presentera rate ratios (exp(β)) med 95-procentiga KI i klartext. Tolka varje variabel:
 
-- dispersion eller överdispersionskontroll
-- residualplottar på en nivå som är rimlig för count-data
-- kontroll av om skattade effekter verkar stabila och rimliga
+- **Verksamhet:** rate ratio relativt referenskategori Byggföretag
+- **GeografisktOmrade:** rate ratio relativt referenskategori Landsbyggd
+- **log(Omsattning):** procentuell ökning i skadefrekvens per fördubbling av omsättning
 
-Om Poisson visar tydliga problem kan negativ binomial användas som robusthetskontroll, men Poisson ska fortsatt vara huvudspåret eftersom det är den modell uppgiften explicit utgår från.
+#### Affärsmässig innebörd
 
-### B.5 Tolkning
+Översätt rate ratios till prissättnings- och segmenteringsrelevanta slutsatser:
 
-GLM-resultaten ska översättas till:
+- vilka verksamhetstyper som har högre respektive lägre skadefrekvens
+- om geografisk effekt är tillräckligt stor för att motivera differentiering
+- hur omsättning fungerar som ratingfaktor
 
-- incidenskvoter eller annan tydlig effektstorlek
-- tolkning av referenskategorier
-- diskussion om affärsmässig innebörd
+Det räcker inte att visa koefficienter. Resultatet ska förklaras så att någon i försäkringsverksamheten förstår vad det betyder.
 
-Det är här rapporten ska bli stark. Det räcker inte att visa koefficienter; resultatet måste förklaras så att någon i försäkringsverksamheten förstår vad de betyder.
+### Regler för Fas B
+
+- Kursnivå: enkla motiveringar, inga formella testbatterier (ingen VIF, inga LR-test)
+- Träna 2021–2023, validera 2024, test 2025 reserverad för Fas D
+- `Duration` som offset, log-länk, Poisson-familj
+- Svenska variabelnamn exakt som i data
+- Referenskategorier: Byggföretag (verksamhet), Landsbyggd (geografi)
 
 ## Fas C — XGBoost som challenger-modell
 

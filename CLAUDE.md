@@ -29,7 +29,8 @@ The target outcome is a defensible end-to-end analysis that:
   - `A4-samvariation.ipynb`
   - `A5-figurer-och-sammanfattning.ipynb`
 - `src/analysis/predictive/` is the predictive modelling track:
-  - `B1-variabelval-glm.ipynb`
+  - `B1-grundspecifikation-arseffekt.ipynb` — modellval M0–M3, AIC + valideringsdeviance, M2 vald som slutmodell
+  - `B2-modellkontroll-tolkning.ipynb` — överdispersion, rate ratios med KI, affärsmässig tolkning
 
 ## Working Rules
 
