@@ -275,9 +275,9 @@ Det är uppmätt evidens, inte hypoteser. Att köra GLM-varianter för att bekr�
 |---|---|---|---|
 | `C(Verksamhet)` | Inkludera | Deskriptiv analys | Tydliga segmentskillnader (A3) |
 | `C(GeografisktOmrade)` | Inkludera | Deskriptiv analys | Tydlig urban-rural-gradient (A3) |
-| `log1p(Omsattning)` | Inkludera | Deskriptiv analys | Starkast gradient, väljs över Forsakringsbelopp (A4) |
-| `log1p(Forsakringsbelopp)` | Uteslut | Deskriptiv analys | Kollinear med Omsattning, svagare gradient — strukturellt val (A4) |
-| `log1p(Sjalvrisk)` | Uteslut | Deskriptiv analys | Svagast samband, tillför lite utöver storleksmåtten (A4) |
+| `log(Omsattning)` | Inkludera | Deskriptiv analys | Starkast gradient, väljs över Forsakringsbelopp (A4) |
+| `log(Forsakringsbelopp)` | Uteslut | Deskriptiv analys | Kollinear med Omsattning, svagare gradient — strukturellt val (A4) |
+| `log(Sjalvrisk)` | Uteslut | Deskriptiv analys | Svagast samband, tillför lite utöver storleksmåtten (A4) |
 | `Ar` (numerisk) | Testa | Validering på 2024 | Genuint osäkert bidrag, deskriptiv otillräcklig (A3) |
 
 ### Vad detta gör för rapportens röda tråd

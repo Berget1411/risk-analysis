@@ -1,4 +1,4 @@
-# NEW-PLAN.md — Entreprenadförsäkring (ME1316)
+# PLAN.md — Entreprenadförsäkring (ME1316)
 
 ## 1. Uppdrag och beslutskontext
 
@@ -123,7 +123,7 @@ Syftet i denna fas är att skapa överblick, verifiera datakvalitet och förbere
 - total skadefrekvens i träning och test
 - fördelning av `AntalSkador`
 - fördelning av `Duration`
-- beskrivning av ekonomiska variabler med medelvärde, median, kvartiler och spridningsmått
+- beskrivning av ekonomiska variabler med medelvärde, median, deciler och spridningsmått
 
 ### A.3 Segmenterad beskrivning
 
@@ -154,7 +154,7 @@ Poisson-GLM är huvudmodellen. Antal skador som responsvariabel, log-länk, `Dur
 
 Variabelvalet är i praktiken gjort i Fas A:
 
-- `Omsattning` vald som storleksvariabel (A4: starkast samband med skadefrekvens, 5.6× spridning mellan kvartiler)
+- `Omsattning` vald som storleksvariabel (A4: starkast samband med skadefrekvens, 5.6× spridning mellan deciler)
 - `Verksamhet` och `GeografisktOmrade` inkluderas additivt (A3: VVS × Storstad stärker varandra, men interaktion testas inte i GLM)
 - `Sjalvrisk` och `Forsakringsbelopp` exkluderade (A4: hög korrelation med omsättning, lågt marginellt informationsvärde)
 
@@ -187,7 +187,7 @@ Alla modeller använder `offset(log(Duration))` och Poisson-familj.
 
 #### Överdispersion
 
-Kontrollera deviance/df för M2. Om kvoten är klart större än 1, nämn negativ binomial som alternativ men behåll Poisson som huvudspår.
+Kontrollera Pearson χ²/frihetsgrader för M2. Om kvoten är klart större än 1, nämn negativ binomial som alternativ men behåll Poisson som huvudspår.
 
 #### Residualplottar
 

@@ -24,15 +24,39 @@ The final modeling goal is to predict the number of claims in the 2025 test port
 - `.docs/PLAN.md`: project plan and recommended workflow
 - `src/`: isolated Python environment managed with `uv`
 - `src/analysis/descriptive-analysis/`: descriptive notebooks
-- `src/analysis/preditice`: current placeholder for predictive work
+- `src/analysis/predictive/`: predictive modelling notebooks and model artifacts
+- `.docs/REPORT.md/`: report draft folder; analysis is available, but the final report text is still incomplete
 
-The descriptive analysis track currently follows this notebook sequence:
+The descriptive analysis track follows this notebook sequence:
 
 1. `A1-datakontroll.ipynb`
 2. `A2-grundlaggande-beskrivning.ipynb`
 3. `A3-segmenterad-beskrivning.ipynb`
 4. `A4-samvariation.ipynb`
 5. `A5-figurer-och-sammanfattning.ipynb`
+
+The predictive track follows this notebook sequence:
+
+1. `B1-grundspecifikation-arseffekt.ipynb`
+2. `B2-modellkontroll-tolkning.ipynb`
+3. `C-xgboost.ipynb`
+4. `D1-modelljamforelse.ipynb`
+5. `E-osakerhet.ipynb`
+
+Key predictive artifacts:
+
+- `src/analysis/predictive/artifacts/C-best-config.json`
+- `src/analysis/predictive/artifacts/C-candidates.csv`
+
+## Current Analysis Status
+
+The analysis track A-F is complete and ready to be synthesized into the report:
+
+- Poisson-GLM M2 is the recommended main model for pricing because it is interpretable and performs essentially on par with XGBoost.
+- XGBoost `shallow-fast` is the locked challenger configuration (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
+- XGBoost is marginally better on Poisson deviance, but the improvement is too small to justify replacing GLM M2 as the main model.
+- 2025 GLM portfolio prediction is about 5,581 claims versus 5,520 observed claims, with a 95% interval of about 5,503-5,659 claims.
+- The remaining work is report writing in `.docs/REPORT.md/`, not new model development.
 
 ## Analysis Workflow
 

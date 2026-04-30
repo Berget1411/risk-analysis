@@ -31,15 +31,24 @@ The target outcome is a defensible end-to-end analysis that:
 - `src/analysis/predictive/` is the predictive modelling track:
   - `B1-grundspecifikation-arseffekt.ipynb` — modellval M0–M3, AIC + valideringsdeviance, M2 vald som slutmodell
   - `B2-modellkontroll-tolkning.ipynb` — överdispersion, rate ratios med KI, affärsmässig tolkning
+  - `C-xgboost.ipynb` — XGBoost challenger och låst `shallow-fast`-konfiguration
+  - `D1-modelljamforelse.ipynb` — GLM vs XGBoost på 2024 och slutlig 2025-utvärdering
+  - `E-osakerhet.ipynb` — portfölj-, segment- och radnivåosäkerhet för GLM M2
+  - `artifacts/C-best-config.json` och `artifacts/C-candidates.csv` — låsta XGBoost-resultat
+- `.docs/FAS-F-REKOMMENDATIONER.md` contains the prescriptive recommendations from phases A-E.
+- `.docs/REPORT.md/` contains the report draft; it is not complete report text yet.
 
 ## Working Rules
 
 - Follow the phase order in `.docs/PLAN.md`.
 - Keep the distinction clear between descriptive, predictive, and prescriptive analysis.
 - Treat `Duration` as exposure in count models.
+- Use `log(Omsattning)` as the locked size feature in predictive models.
 - Preserve temporal validation logic. Default workflow: train on 2021-2023, validate on 2024, evaluate on 2025.
 - Discuss model effects as associations, not causal effects.
 - Make model comparison decision-ready: accuracy matters, but interpretability and business usefulness matter too.
+- Use Pearson χ²/frihetsgrader for the GLM overdispersion check.
+- Treat GLM M2 as the recommended main model unless the user explicitly asks for new modelling work; XGBoost is a marginally better challenger on deviance, not the recommended pricing model.
 
 ## Practical Expectations
 

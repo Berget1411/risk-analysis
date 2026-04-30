@@ -16,7 +16,7 @@
 
 ## Beslut inför B.1 Grundspecifikation
 
-### Primär storleksvariabel: `log1p(Omsattning)`
+### Primär storleksvariabel: `log(Omsattning)`
 
 Motivering:
 - Starkast univariat samband med skadefrekvens
@@ -36,12 +36,12 @@ r = 0.57 mellan Omsättning och Försäkringsbelopp = måttlig kollinearitet. At
 
 ### Känslighetscheck
 
-Kör alternativ modell med `log1p(Forsakringsbelopp)` istället för `log1p(Omsattning)`. Jämför via AIC/BIC. Skillnad >10 = stark evidens, <2 = likvärdiga.
+Kör alternativ modell med `log(Forsakringsbelopp)` istället för `log(Omsattning)`. Jämför via AIC/BIC. Skillnad >10 = stark evidens, <2 = likvärdiga.
 
 ## Föreslagen grundmodell (B.1)
 
 ```
-AntalSkador ~ C(Verksamhet) + C(GeografisktOmrade) + log1p(Omsattning) + offset(log(Duration))
+AntalSkador ~ C(Verksamhet) + C(GeografisktOmrade) + log(Omsattning) + offset(log(Duration))
 ```
 
 Eventuellt med `C(Ar)` för tidstrend — utvärderas i B.1.

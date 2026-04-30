@@ -30,7 +30,15 @@ The working objective is to:
   - `A3-segmenterad-beskrivning.ipynb`
   - `A4-samvariation.ipynb`
   - `A5-figurer-och-sammanfattning.ipynb`
-- `src/analysis/preditice`: current placeholder for the predictive track. Respect the existing name and structure unless the user explicitly asks to rename it.
+- `src/analysis/predictive/`: current predictive track:
+  - `B1-grundspecifikation-arseffekt.ipynb`
+  - `B2-modellkontroll-tolkning.ipynb`
+  - `C-xgboost.ipynb`
+  - `D1-modelljamforelse.ipynb`
+  - `E-osakerhet.ipynb`
+  - `artifacts/C-best-config.json`
+  - `artifacts/C-candidates.csv`
+- `.docs/REPORT.md/`: report draft folder. Do not treat this as completed report text unless the relevant section has been written.
 
 ## Expected Workflow
 
@@ -42,19 +50,31 @@ Work in the order defined by `.docs/PLAN.md`:
 4. Phase D: model comparison
 5. Phase E: uncertainty on portfolio and row level
 6. Phase F: prescriptive recommendations for pricing and segmentation
+7. Report writing from existing analysis artifacts
 
 ## Analysis Guardrails
 
 - Model claim frequency, not claim severity.
 - Treat `Duration` as exposure. In GLM work, use it as an offset, not as a normal explanatory feature.
+- Use `log(Omsattning)` as the locked size feature in predictive models, matching B1/B2/C/D/E.
 - Keep interpretations associative, not causal.
 - Handle correlation among `Omsattning`, `Forsakringsbelopp`, and `Sjalvrisk` explicitly.
 - Preserve time order in validation. The default split is train on 2021-2023, validate on 2024, evaluate once on 2025.
 - Prefer simple, defensible modeling decisions over unnecessary complexity.
+- Overdispersion for GLM M2 is checked with Pearson χ²/frihetsgrader.
+
+## Current Analysis Status
+
+- Phase A-F analysis artifacts are complete.
+- GLM M2 is the recommended main model because XGBoost only improves Poisson deviance marginally while reducing interpretability.
+- XGBoost `shallow-fast` is the locked challenger (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
+- 2025 test data has already been used for final evaluation in D1/E. Do not use it for further tuning or model-selection iteration.
+- Remaining work is report synthesis in `.docs/REPORT.md/`, not additional analysis, unless the user explicitly asks for a new sensitivity check.
 
 ## Notebook and File Conventions
 
 - Keep descriptive work aligned with the existing `A1` to `A5` notebook sequence.
-- If predictive notebooks or scripts are added, mirror the plan structure and use clear phase-based names.
+- Keep predictive work aligned with the existing `B1`, `B2`, `C`, `D1`, `E` sequence.
+- If new predictive notebooks or scripts are added, mirror the plan structure and use clear phase-based names.
 - Keep outputs reproducible and avoid hard-coded local paths.
 - Document any assumption that changes the interpretation of the plan, data, or evaluation logic.

@@ -13,7 +13,7 @@ Vi räknar antal skador. Poisson-fördelningen är gjord för att modellera "hur
 ## B.1 Grundspecifikation
 
 ```
-AntalSkador ~ C(Verksamhet) + C(GeografisktOmrade) + log1p(Omsattning) + offset(log(Duration))
+AntalSkador ~ C(Verksamhet) + C(GeografisktOmrade) + log(Omsattning) + offset(log(Duration))
 ```
 
 Översatt: "Förklara antal skador med hjälp av vilken bransch kunden tillhör, var kunden finns, och hur stor kunden är — justerat för hur länge försäkringen varit aktiv."

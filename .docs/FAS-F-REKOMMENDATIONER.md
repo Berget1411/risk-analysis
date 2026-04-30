@@ -52,7 +52,7 @@ Genomgående mönster: **Små nischade verksamheter på Landsbyggden i lägsta o
 - **Endast frekvens, ej kostnad.** Full premieberäkning kräver även severity-modell (medelskadekostnad × frekvens). Ej i scope här.
 - **Observationsdata.** Rate ratios visar *samband*, inte kausala effekter. Inga interventioner testade.
 - **Ingen årseffekt modellerad.** `Ar` uteslöts för att kunna prediktera 2025. Möjlig underrapportering av tidstrender — B1-M3 visade dock endast 2 % årlig variation.
-- **Wald-KI antar normalitet.** Asymptotiskt korrekt givet n > 10⁶. Eventuell överdispersion kontrollerad i B2 (deviance/df ≈ 1) → ingen material effekt.
+- **Wald-KI antar normalitet.** Asymptotiskt korrekt givet n > 10⁶. Eventuell överdispersion kontrollerad i B2 (Pearson χ²/frihetsgrader ≈ 0.986) → ingen materiell effekt.
 - **Portfölj-KI oberoendeantagande:** Fas E använder delta-metod med full kovarians (ger 2.8 % relativ KI). Enkla oberoendeapproxen underskattar kraftigt (<1 %).
 
 ### Datainsamling — önskelista

@@ -21,7 +21,7 @@ Visa koefficienter + rate ratios för M2.
 
 ### B2 — Modellkontroll och tolkning
 
-- Överdispersion: deviance/df. Nämn negativ binomial om problem, Poisson förblir huvudspår.
+- Överdispersion: Pearson χ²/frihetsgrader. Nämn negativ binomial om problem, Poisson förblir huvudspår.
 - Inga residualplottar (98% nollor → oinformativa, motivera varför i text).
 - Rate ratios med KI i klartext
 - Referenskategorier: Byggföretag, Landsbyggd
