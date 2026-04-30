@@ -1,0 +1,19 @@
+{
+  "hyperparams": {
+    "objective": "count:poisson",
+    "eval_metric": "poisson-nloglik",
+    "tree_method": "hist",
+    "min_child_weight": 10,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "reg_lambda": 1.0,
+    "seed": 42,
+    "verbosity": 0,
+    "max_depth": 3,
+    "learning_rate": 0.1
+  },
+  "num_boost_round": 232,
+  "val_deviance": 40918.10951448977,
+  "portfolio_err_pct": -3.547122099361917,
+  "valt_namn": "shallow-fast"
+}
