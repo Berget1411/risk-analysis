@@ -1,6 +1,6 @@
-"""Genererar presentation.pptx för ME1316-projektet. ~5 min presentation.
+"""Genererar presentation.pptx för ME1316-projektet. ~10 min presentation.
 
-Slides: Titel + 7 innehållsslides med inline-tabeller och grafer.
+Slides: Titel + 12 innehållsslides med inline-tabeller och grafer.
 Kör: uv run python presentation/skapa_pptx.py
 """
 from pathlib import Path
@@ -217,6 +217,38 @@ def make_claim_frequency_bar():
     return path
 
 
+def make_decile_bar():
+    """Vertical bar chart: skadefrekvens per omsättningsdecil (1-10)."""
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    deciles = list(range(1, 11))
+    values = [0.0072, 0.0100, 0.0130, 0.0150, 0.0180, 0.0200, 0.0230, 0.0270, 0.0320, 0.0400]
+
+    # Color gradient blue → red
+    cmap = plt.cm.RdYlBu_r
+    norm = plt.Normalize(vmin=min(values), vmax=max(values))
+    colors = [cmap(norm(v)) for v in values]
+
+    ax.bar(deciles, values, color=colors, edgecolor="white", linewidth=0.5)
+    ax.axhline(0.0214, ls="--", color="gray", alpha=0.7, label="Portföljsnitt (0,0214)")
+    ax.set_xlabel("Omsättningsdecil (1 = lägst, 10 = högst)")
+    ax.set_ylabel("Skadefrekvens")
+    ax.set_title("Skadefrekvens per omsättningsdecil — 5,6× spridning")
+    ax.set_xticks(deciles)
+    ax.legend(fontsize=10)
+    ax.set_ylim(0, 0.045)
+
+    # Annotate spread
+    ax.annotate("5,6×", xy=(9.5, 0.041), fontsize=14, fontweight="bold", color="#d32f2f",
+                ha="center")
+
+    plt.tight_layout()
+    path = FIGURE_DIR / "omsattning_decil.png"
+    plt.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close()
+    return path
+
+
 def make_model_comparison_bar():
     """Simple grouped bar showing GLM vs XGBoost key metrics on 2025 test."""
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -224,7 +256,6 @@ def make_model_comparison_bar():
     metrics = ["Poisson\ndeviance", "Portföljfel\n(%)", "Predikterade\nskador"]
     glm_vals = [41889.2, 1.10, 5581]
     xgb_vals = [41855.7, 1.22, 5587]
-    obs_val = [None, None, 5520]
 
     x = np.arange(len(metrics))
     w = 0.3
@@ -331,6 +362,7 @@ def make_rate_ratio_forest():
 
 # Generate all figures
 fig_segments = make_claim_frequency_bar()
+fig_decile = make_decile_bar()
 fig_forest = make_rate_ratio_forest()
 fig_comparison = make_model_comparison_bar()
 
@@ -342,42 +374,82 @@ print(f"Figurer sparade i {FIGURE_DIR}/")
 # 1. Titel
 add_title_slide(
     "Skadefrekvensanalys\nEntreprenadförsäkring",
-    "ME1316 · Poisson-GLM vs XGBoost · 5 min"
+    "ME1316 · Poisson-GLM vs XGBoost · 10 min"
 )
 
-# 2. Problemet
-add_slide("Frågeställning", [
-    "Vilka faktorer driver skadefrekvensen i entreprenadportföljen?",
-    "Kan vi prediktera skadeantal för 2025?",
-    "Ger maskininlärning (XGBoost) bättre resultat än tolkbar modell (GLM)?",
+# 2. Bakgrund och Syfte
+add_slide("Bakgrund och Syfte", [
+    "Entreprenadförsäkring: försäkring för byggprojekt och anläggninsarbeten",
+    "Premie = frekvens × kostnad — vi analyserar frekvenskomponenten",
     "",
-    "Data: 1 miljon avtal 2021–2024, 98% har noll skador",
-    "Metod: tidsbaserad validering (träna → validera → testa)",
+    "Syfte:",
+    "  - Identifiera vilka faktorer som driver skadefrekvensen",
+    "  - Prediktera skadeantal för en ny portfölj (2025)",
+    "  - Jämföra tolkbar modell (GLM) mot maskininlärning (XGBoost)",
 ])
 
-# 3. Deskriptiva fynd (med figur)
+# 3. Frågeställning och Metod
+add_slide("Frågeställning och Metod", [
+    "Tre forskningsfrågor:",
+    "  - Vilka faktorer driver skadefrekvensen?",
+    "  - Kan vi prediktera 2025 med god träffsäkerhet?",
+    "  - Ger XGBoost mervärde jämfört med GLM?",
+    "",
+    "Tidsbaserad validering (undviker look-ahead bias):",
+    "  - Träna: 2021–2023",
+    "  - Validera: 2024 (modellval och hyperparametrar)",
+    "  - Testa: 2025 (slutlig utvärdering, aldrig sedd under utveckling)",
+])
+
+# 4. Dataöverblick (tabell)
+add_table_slide(
+    "Dataöverblick",
+    ["", "Träning", "Test"],
+    [
+        ["Period", "2021–2024", "2025"],
+        ["Antal rader", "1 033 386", "291 649"],
+        ["Antal skador", "19 730", "5 520"],
+        ["Noll-skador", "98,1%", "98,1%"],
+        ["Skadefrekvens", "0,0214", "0,0212"],
+    ],
+    subtitle="7 verksamhetstyper · 4 geografiska områden · Omsättning (kontinuerlig)",
+)
+
+# 5. Deskriptiva fynd — segmentfigur
 add_figure_slide(
     "Tre ratingfaktorer sticker ut",
     fig_segments,
     subtitle="Skadefrekvens varierar 2–3× mellan segment. VVS + Storstad = högst risk.",
 )
 
-# 4. GLM-modellen
-add_slide("Poisson-GLM: Modell M2", [
-    "Modellformel: log(Skador) = log(Duration) + Verksamhet + Geografi + log(Omsättning)",
-    "AIC-förbättring: −2 752 vs enklare modell → alla tre variabler bidrar",
-    "Dispersionskvot: 0,986 → Poisson-antagandet håller",
-    "Årseffekt negligerbar (ΔAIC = 2) och ej extrapolerbar → exkluderad",
-])
+# 6. Deskriptiva fynd — Omsättning decil
+add_figure_slide(
+    "Omsättning: starkaste gradienten",
+    fig_decile,
+    subtitle="5,6× spridning mellan lägsta och högsta decil. Motiverar log(Omsättning) i modellen.",
+)
 
-# 5. Rate Ratios (forest plot)
+# 7. Poisson-GLM: Modellval (AIC-tabell)
+add_table_slide(
+    "Poisson-GLM: Modellval",
+    ["Modell", "Beskrivning", "AIC", "ΔAIC vs M0"],
+    [
+        ["M0", "Enbart intercept", "141 086", "—"],
+        ["M1", "Verksamhet + Geografi", "139 723", "−1 363"],
+        ["M2", "M1 + log(Omsättning)", "136 971", "−4 115"],
+        ["M3", "M2 + År", "136 969", "−4 117"],
+    ],
+    subtitle="M2 vald som slutmodell. Dispersion 0,986 → Poisson-antagandet håller. Årseffekt negligerbar.",
+)
+
+# 8. Rate Ratios (forest plot)
 add_figure_slide(
     "Rate Ratios — multiplikatorer på skadefrekvens",
     fig_forest,
     subtitle="Allt annat lika. Röd = högre risk, blå = lägre risk vs referens.",
 )
 
-# 6. Rate Ratios tabell (för tydlighet)
+# 9. Rate Ratios tabell
 add_table_slide(
     "Nyckeltal: Rate Ratios",
     ["Faktor", "Rate Ratio", "95% KI", "Tolkning"],
@@ -391,7 +463,22 @@ add_table_slide(
     subtitle="Snäva KI → skillnaderna är statistiskt säkra",
 )
 
-# 7. Modelljämförelse
+# 10. XGBoost: Challenger
+add_slide("XGBoost: Challenger-modell", [
+    "Gradient boosting med Poisson-objektiv, samma 3 variabler",
+    "Bästa konfiguration: max_depth = 3, learning_rate = 0,10, 232 träd",
+    "  - Grunda träd → signalen är additiv, precis som GLM antar",
+    "  - Djupare träd (djup 5, 8) ger sämre resultat",
+    "",
+    "Feature importance (gain):",
+    "  - log(Omsättning): 20,04",
+    "  - GeografisktOmråde: 8,26",
+    "  - Verksamhet: 6,46",
+    "",
+    "Samma tre drivare, samma rangordning → GLM missar inget",
+])
+
+# 11. Modelljämförelse (tabell)
 add_table_slide(
     "GLM vs XGBoost — Testportfölj 2025",
     ["Mått", "GLM M2", "XGBoost", "Skillnad"],
@@ -401,21 +488,38 @@ add_table_slide(
         ["Portföljfel", "+1,10%", "+1,22%", "GLM bättre"],
         ["Pred. skador", "5 581", "5 587", "Obs: 5 520"],
     ],
-    subtitle="XGBoost marginellt bättre på deviance, GLM bättre på portföljkalibrering",
+    subtitle="Validering 2024 visade samma mönster (−0,21% deviance). Ingen meningsfull skillnad.",
 )
 
-# 8. Slutsats
-add_slide("Slutsats och rekommendation", [
+# 12. Osäkerhet
+add_slide("Osäkerhet i prediktioner", [
+    "Portföljnivå:",
+    "  - Totalprognos: 5 581 skador, 95% KI [5 503 – 5 659]",
+    "  - Relativ osäkerhet: 2,8% → portföljprognosen är tillförlitlig",
+    "  - Observerat (5 520) ligger inom KI ✓",
+    "",
+    "Radnivå: relativ osäkerhet varierar 0,05 – 0,19",
+    "",
+    "Drivare av hög osäkerhet:",
+    "  - Liten träningscell (ovanliga verksamhet × geografi-kombinationer)",
+    "  - Extrema omsättningsnivåer (långt från centrum)",
+    "  - Kort exponeringstid (lågt förväntat antal)",
+])
+
+# 13. Slutsats och Rekommendation
+add_slide("Slutsats och Rekommendation", [
     "GLM predikterar 5 581 skador vs 5 520 observerade (+1,1% fel)",
-    "XGBoost bekräftar: signalen är additiv, inga dolda interaktioner",
+    "  - 3× spridning från lägsta till högsta riskprofil",
     "",
     "Rekommendation:",
     "  - Differentierad premie: Verksamhet × Geografi × Omsättning",
     "  - GLM som huvudmodell (tolkbar, transparent, stabil)",
     "  - XGBoost som parallell challenger (larmar vid modelldrift)",
-    "  - Manuell granskning: ovanliga kundprofiler med hög osäkerhet",
+    "  - Manuell granskning för ovanliga kundprofiler med hög osäkerhet",
     "",
-    "Begränsning: frekvens, ej kostnad. Samband, ej orsak.",
+    "Begränsningar:",
+    "  - Samband, ej orsak. Frekvens, ej kostnad.",
+    "  - Vidare: kostnadsmodell, interaktioner, finare variabler, årlig uppföljning",
 ])
 
 # === Save ===
