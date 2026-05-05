@@ -29,7 +29,7 @@ Från D1 per-segment-tabell (cell `d1-segments` + `d1-seg-decile`) och A3-heatma
 
 ## 3. Segment som kräver manuell granskning
 
-Från Fas E (cell `e-segments` topp-10-tabell).
+Från Fas E (cell `e-row-level` — mest osäkra rader).
 
 Genomgående mönster: **Små nischade verksamheter på Landsbyggden i lägsta och högsta omsättningsdeciler.**
 
@@ -75,7 +75,7 @@ GLM M2 rekommenderas som huvudmodell för prissättning av entreprenadförsäkri
 | Rate ratios | `src/analysis/predictive/B2-modellkontroll-tolkning.ipynb` |
 | Segmentjämförelse per Verksamhet/Geografi/Decil | `src/analysis/predictive/D1-modelljamforelse.ipynb` (celler `d1-segments`, `d1-seg-geo`, `d1-seg-decile`) |
 | Portfölj-KI för 2025 | `src/analysis/predictive/E-osakerhet.ipynb` (cell `e-portfolio`) |
-| Mest/minst osäkra segment | `src/analysis/predictive/E-osakerhet.ipynb` (celler `e-segments`, `e-segments-low`, `e-row-level`) |
+| Mest/minst osäkra rader | `src/analysis/predictive/E-osakerhet.ipynb` (cell `e-row-level`) |
 | Variabelval | `.docs/A4-SLUTSATS.md` |
 | Modellspec M2 | `.docs/FAS-B-FORKLARING.md` |
 | XGBoost-jämförelse | `.docs/FAS-C-D-FORKLARING.md` |
