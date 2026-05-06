@@ -1,58 +1,66 @@
-# CLAUDE.md
+# AGENTS.md
 
-## Project Context
+## Project Focus
 
-This repository supports the ME1316 project on pricing and claim-frequency analysis for `Entreprenadförsäkring`.
+This repository is for the ME1316 insurance pricing project on `Entreprenadförsäkring`.
 
-The target outcome is a defensible end-to-end analysis that:
+The working objective is to:
 
-1. describes the portfolio and its risk patterns
-2. builds a Poisson-GLM as the primary interpretable model
-3. benchmarks it against XGBoost
-4. predicts the 2025 test portfolio
-5. turns findings into business-facing recommendations
+1. describe the portfolio and claim frequency patterns
+2. build an interpretable Poisson-GLM as the main model
+3. compare it against an XGBoost challenger
+4. predict claim counts for the 2025 test portfolio
+5. translate results into pricing and segmentation recommendations
 
-## Primary Reference
+## Source of Truth
 
-- Use `.docs/PLAN.md` as the main planning document.
-- Keep all work consistent with the report logic in the course material under `info/`.
-- Use `data/Entreprenadförsäkring training.csv` for training and internal validation.
-- Reserve `data/Entreprenadförsäkring test.csv` for final evaluation only.
+- Treat `data/Entreprenadförsäkring training.csv` as the development dataset.
+- Treat `data/Entreprenadförsäkring test.csv` as the final 2025 holdout.
+- Do not use 2025 test data for feature selection, tuning, or iterative model choice.
 
-## Current Project Layout
+## Repository Structure
 
-- `src/` contains the Python environment managed with `uv`.
-- `src/analysis/descriptive-analysis/` is the implemented descriptive track:
+- `data/`: training and test CSV files.
+- `info/`: course background, report template, and supporting material.
+- `src/`: standalone `uv` Python environment for analysis work.
+- `src/analysis/descriptive-analysis/`: current descriptive notebooks:
   - `A1-datakontroll.ipynb`
   - `A2-grundlaggande-beskrivning.ipynb`
   - `A3-segmenterad-beskrivning.ipynb`
   - `A4-samvariation.ipynb`
   - `A5-figurer-och-sammanfattning.ipynb`
-- `src/analysis/predictive/` is the predictive modelling track:
-  - `B1-grundspecifikation-arseffekt.ipynb` — modellval M0–M3, AIC + valideringsdeviance, M2 vald som slutmodell
-  - `B2-modellkontroll-tolkning.ipynb` — överdispersion, rate ratios med KI, affärsmässig tolkning
-  - `C-xgboost.ipynb` — XGBoost challenger och låst `shallow-fast`-konfiguration
-  - `D1-modelljamforelse.ipynb` — GLM vs XGBoost på 2024 och slutlig 2025-utvärdering
-  - `E-osakerhet.ipynb` — portfölj-, segment- och radnivåosäkerhet för GLM M2
-  - `artifacts/C-best-config.json` och `artifacts/C-candidates.csv` — låsta XGBoost-resultat
-- `.docs/FAS-F-REKOMMENDATIONER.md` contains the prescriptive recommendations from phases A-E.
-- `.docs/REPORT.md/` contains the report draft; it is not complete report text yet.
+- `src/analysis/predictive/`: current predictive track:
+  - `B1-grundspecifikation-arseffekt.ipynb`
+  - `B2-modellkontroll-tolkning.ipynb`
+  - `C-xgboost.ipynb`
+  - `D1-modelljamforelse.ipynb`
+  - `E-osakerhet.ipynb`
+  - `artifacts/C-best-config.json`
+  - `artifacts/C-candidates.csv`
 
-## Working Rules
+## Analysis Guardrails
 
-- Follow the phase order in `.docs/PLAN.md`.
-- Keep the distinction clear between descriptive, predictive, and prescriptive analysis.
-- Treat `Duration` as exposure in count models.
-- Use `log(Omsattning)` as the locked size feature in predictive models.
-- Preserve temporal validation logic. Default workflow: train on 2021-2023, validate on 2024, evaluate on 2025.
-- Discuss model effects as associations, not causal effects.
-- Make model comparison decision-ready: accuracy matters, but interpretability and business usefulness matter too.
-- Use Pearson χ²/frihetsgrader for the GLM overdispersion check.
-- Treat GLM M2 as the recommended main model unless the user explicitly asks for new modelling work; XGBoost is a marginally better challenger on deviance, not the recommended pricing model.
+- Model claim frequency, not claim severity.
+- Treat `Duration` as exposure. In GLM work, use it as an offset, not as a normal explanatory feature.
+- Use `log(Omsattning)` as the locked size feature in predictive models, matching B1/B2/C/D/E.
+- Keep interpretations associative, not causal.
+- Handle correlation among `Omsattning`, `Forsakringsbelopp`, and `Sjalvrisk` explicitly.
+- Preserve time order in validation. The default split is train on 2021-2023, validate on 2024, evaluate once on 2025.
+- Prefer simple, defensible modeling decisions over unnecessary complexity.
+- Overdispersion for GLM M2 is checked with Pearson χ²/frihetsgrader.
 
-## Practical Expectations
+## Current Analysis Status
 
-- Build on the existing notebook structure instead of creating parallel ad hoc workflows.
-- Use Swedish variable names exactly as they appear in the data.
-- Keep analysis outputs reproducible, concise, and easy to map into the final report.
-- Flag any mismatch between `.docs/PLAN.md`, the data files, and the repository structure before changing the workflow.
+- Phase A-F analysis artifacts are complete.
+- GLM M2 is the recommended main model because XGBoost only improves Poisson deviance marginally while reducing interpretability.
+- XGBoost `shallow-fast` is the locked challenger (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
+- 2025 test data has already been used for final evaluation in D1/E. Do not use it for further tuning or model-selection iteration.
+
+
+## Notebook and File Conventions
+
+- Keep descriptive work aligned with the existing `A1` to `A5` notebook sequence.
+- Keep predictive work aligned with the existing `B1`, `B2`, `C`, `D1`, `E` sequence.
+- If new predictive notebooks or scripts are added, mirror the plan structure and use clear phase-based names.
+- Keep outputs reproducible and avoid hard-coded local paths.
+- Document any assumption that changes the interpretation of the plan, data, or evaluation logic.

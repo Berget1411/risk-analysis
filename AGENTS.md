@@ -14,7 +14,6 @@ The working objective is to:
 
 ## Source of Truth
 
-- Follow `.docs/PLAN.md` for scope, sequencing, and decision rules.
 - Treat `data/Entreprenadförsäkring training.csv` as the development dataset.
 - Treat `data/Entreprenadförsäkring test.csv` as the final 2025 holdout.
 - Do not use 2025 test data for feature selection, tuning, or iterative model choice.
@@ -38,19 +37,6 @@ The working objective is to:
   - `E-osakerhet.ipynb`
   - `artifacts/C-best-config.json`
   - `artifacts/C-candidates.csv`
-- `.docs/REPORT.md/`: report draft folder. Do not treat this as completed report text unless the relevant section has been written.
-
-## Expected Workflow
-
-Work in the order defined by `.docs/PLAN.md`:
-
-1. Phase A: data control and descriptive analysis
-2. Phase B: Poisson-GLM as the main model
-3. Phase C: XGBoost as challenger
-4. Phase D: model comparison
-5. Phase E: uncertainty on portfolio and row level
-6. Phase F: prescriptive recommendations for pricing and segmentation
-7. Report writing from existing analysis artifacts
 
 ## Analysis Guardrails
 
@@ -69,7 +55,7 @@ Work in the order defined by `.docs/PLAN.md`:
 - GLM M2 is the recommended main model because XGBoost only improves Poisson deviance marginally while reducing interpretability.
 - XGBoost `shallow-fast` is the locked challenger (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
 - 2025 test data has already been used for final evaluation in D1/E. Do not use it for further tuning or model-selection iteration.
-- Remaining work is report synthesis in `.docs/REPORT.md/`, not additional analysis, unless the user explicitly asks for a new sensitivity check.
+
 
 ## Notebook and File Conventions
 

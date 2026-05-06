@@ -4,7 +4,7 @@ Project repository for the KTH ME1316 analysis of `Entreprenadförsäkring`, foc
 
 ## Objective
 
-The project follows `.docs/PLAN.md` and is organized around three linked tasks:
+The project is organized around three linked tasks:
 
 1. descriptive analysis of the insurance portfolio
 2. predictive comparison between Poisson-GLM and XGBoost
@@ -21,11 +21,9 @@ The final modeling goal is to predict the number of claims in the 2025 test port
 
 - `data/`: raw training and test files
 - `info/`: assignment background, report template, and course material
-- `.docs/PLAN.md`: project plan and recommended workflow
 - `src/`: isolated Python environment managed with `uv`
 - `src/analysis/descriptive-analysis/`: descriptive notebooks
 - `src/analysis/predictive/`: predictive modelling notebooks and model artifacts
-- `.docs/REPORT.md/`: report draft folder; analysis is available, but the final report text is still incomplete
 
 The descriptive analysis track follows this notebook sequence:
 
@@ -56,7 +54,6 @@ The analysis track A-F is complete and ready to be synthesized into the report:
 - XGBoost `shallow-fast` is the locked challenger configuration (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
 - XGBoost is marginally better on Poisson deviance, but the improvement is too small to justify replacing GLM M2 as the main model.
 - 2025 GLM portfolio prediction is about 5,581 claims versus 5,520 observed claims, with a 95% interval of about 5,503-5,659 claims.
-- The remaining work is report writing in `.docs/REPORT.md/`, not new model development.
 
 ## Analysis Workflow
 
