@@ -1,0 +1,570 @@
+lOMoARcPSD|60122168
+
+Sammanfattning: Data, Modeller och Verklighet, Kvantitativ
+affärs- och verksamhetsanalys
+Kvantitativ affärs- och verksamhetsanalys (Kungliga Tekniska Högskolan)
+
+Scan to open on Studocu
+
+Studocu is not sponsored or endorsed by any college or university
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+Kvantitativ Affärsanalys – Sammanfattning av Data, Modeller och Verkligheter
+Januari 202
+
+Data, modeller och verkligheter av Anders Broström
+Kapitel 1 – Analytisk Förståelse
+1.1 Kunskap för dataåldern
+ Stora delar av vardagen formas av kvantitativ analys, ex. digitala mötesplatser,
+opinionsmätningar, undersökningar etcetera
+ Systematisk analys av data kan ge överblick och insikt vilket hjälper vid
+beslutsfattande
+ Vissa beslut kan även automatiseras med AI och robotar
+o Viktigt med analytisk förmåga för att hantera detta samt att vara kritisk i
+analyser gjorda av andra samt att göra kloka val i egen analys
+1.2 Tilltro till data
+ Kvantitativa data beskrivs som bästa och enda källan till välgrundad kunskap
+ Bättre än kvalitativa data (undviker bekräftelsebias och godtycklighet)
+1.3 Analytiska syften
+ Skillnad mellan:
+o Deskriptiv analys
+ Syftar till att beskriva ett dataset, ett fenomen
+o Prediktiv analys
+ Syftar till att förutsäga framtiden
+o Preskriptiv analys
+ Syftar till att algoritmiskt välja ut det bästa beslutsalternativet
+ Otydlighet kring dessa begrepp beror på att analytiker har olika expertis (skillnad
+mellan de som har datateknisk bakgrund och bakgrund inom ekonomi och statistik)
+ Ungefär: Datavetare ser det som uppgift att visualisera data och mönster kring
+relativt väldefinierade frågeställningar
+ Den mer samhällsvetenskapligt skolade analytikern ser som sin uppgift att möjliggöra
+nya insikter kring breda frågeställningar
+
+Kapitel 2 – Att beskriva data
+Analytikers uppgift: Vilka relevanta mönster döljer sig i data?
+ Hur gör vi för att avgöra vilka mönster som är relevanta?
+ Hur kopplar vi mönster i data till verkligheter som undersöks?
+ Vilka verktyg kan vi använda för att beskriva en datamängd?
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+2.1 Beskrivningar av en mätserie
+ Fundamental beskrivning som görs för att sammanfatta information ryms i en serie
+med data med ett eller flera mått.
+ Vanliga mått:
+o Medelvärde
+o Median
+o Typvärde (mode)
+o Spridningsmått ex. varians eller standardavvikelse
+ Dessa mått skapar överblick och kan jämföras med andra. Kan sammanfattas i ett
+låddiagram som grafiskt representerar kvartiler, min. och max. för ett flertal
+dataserier
+ Studera fördelning m.h.a figur:
+o Horisontell axel – värden på mätserien
+o Vertikal axel – hur vanligt förekommannde är värdet
+ Alternativt täthetskurva – (som ett histogram där dx  0)
+ Visualisering:
+o Överskådligt
+o En utgångspunkt för att jämföra data med teoretiska fördelningar  hjälper
+oss göra rimliga antaganden
+o Diagrammet kan även ge information om eventuella extremvärden (outliers)
+ måste dessa justeras eller inte?
+2.2 Jämförelser mellan mätserier
+ Intressant för en analytiker och kan göras numeriskt eller grafiskt
+ Kvalificerad jämförelse: hypotes-test
+ Enklare jämförelser: ex. huruvida det finns en statistiskt signifikant skillnad mellan
+två medelvärden
+o Utgår från noll-hypotesen att medelvärdena inte går att skilja från varandra
+och provas ofta i form av ett t-test (utgår från normal-fördelade data)
+ Fungerar för det mesta pga. CGS, men inte vid för små datamängder
+eller alltför spridda datapunkter
+ Situationer där vi har flera mätserier att undersöka: ANOVA (analysis of variance)
+o Kan ex. användas för att prova noll-hypotesen att samtliga mätserier har
+samma medelvärde  om det inte ger stöd till att förkasta kan vi tolka det
+som ovan
+o Vad gör vi om testet faller ut med ett p-värde under vår valda
+signifikansgräns? Gå vidare med mätserier som skiljer ut sig från andra i
+signifikant grand
+ Två och två med t-test? När ett flertals hypoteser testas ökar
+sannolikheten att förkastas genom ren slump. I statistikprogram finns
+moduler för post-hoc test att köra efter ANOVA som korrigerar detta.
+Det går även att göra Bonferroni-korrigering och höja
+svårighetsgraden för hur stora skillnader som krävs för att förkasta
+noll-hypotesen
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+2.23 Beskrivningar av samvariation
+ Ligger ofta i vårt intresse att studera hur två data-serier håller sig till varandra.
+ Både numeriska och grafiska metoder fungerar
+ Vi kan då använda kovarians eller dess standardiserade form
+korrelationskoeefficenten
+o Stark korrelation: värde nära -1 eller 1 (negativ korrelation resp. positiv
+korrelation)
+ För mått som temp. Ger korrelationskoefficienter en fullödig beskrivning av
+samvariation
+ Finns även möjlighet att dataserier kovarierar vid små men ej stora värden eller vice
+versa  Vi behöver utnyttja grafisk representation av våra data i form av ett
+spridningsdiagram (scatter plot)
+2.4 Sammanfattande råd
+ Alltid bra att skaffa en överblick över nya data
+ God beskrivning förenklar så långt som möjligt och förvanskar så lite som möjligt
+ Arbetet börjar nästan alltid med frågan vilka dataserier dina data innehåller
+ Undersök också samvariation mellan samtliga variabler i form av en numerisk
+korrelationstabell (med korrelationskoefficienter för alla kombinationer av variabler)
+eller en grafisk korrelationsmatris (med spridningsdiagram för alla korrelationer av
+variabler)
+
+Kapitel 3 – Att dra slutsatser från data – validitet och reliabilitet
+
+
+
+
+Vad kan vi använda datan till?
+Konkreta arbetet handlar om att synliggöra och bearbeta data
+Oavsett metod kan det inte hjälpa dig om datan inte är väl matchad/representerar
+verkligheten du är intresserad  Krävs alltså hög reliabilitet och validitet av data för
+god analys
+
+3.1 Två informella definitioner
+ Reliabilitet ≈ Data är konsistent
+ Kan ses som vårt sätt att mäta gör att våra datapunkter ligger nära det sanna värdet
+ Reliabilitet kan också förstås som att upprepade mätningar av samma underliggande
+storhet ger samma eller liknande utfall
+ Studier om spridningen av våra mätningar gör det möjligt att avgöra reliabiliteten
+ Ofta svårare att avgöra om vårt sätt att mäta är rättvisande - Validitet (ex. en
+felkalibrerad våg kan ge samma resultat 10 gånger, men ändå visa 10% mer än
+verkliga värdet)
+ Krävs ofta flera olika slags data eller flera kompletterande datapunktar för att kunna
+representera den teoretiska storheten med hög validitet
+
+
+Många modeller har låg extern validitet: samband mellan två variabler fångas som
+gäller en situation, men andra möjliga situationer som kan ge samma samband
+fångas inte.
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+Reliabilitet och validitet är kompletterande begrepp som beskriver förutsättningar för att ett
+visst sätt att mäta ska ge användbara data i en analys
+3.2 Hur vet jag om jag har problem med reliabilitet och validitet?
+ Vag skattning behöver inte innebära låg validitet
+ Anknytning till de stora talens lag: intuitivt är ett medelvärde mer pålitligt ju fler
+mätvärden vi har (gäller då observationerna är oberoende och den variabel vi
+studerar är slumpmässigt dragen)
+ För att bedöma problem med reliabilitet och validitet måste du bedöma hur dina
+data förhåller sig till den verklighet du vill veta något om – det vill säga förstå den
+datagenererande processen (DGP)
+o Handlar om 2 sorters förståelse: Insikt i verkligheten vi är intresserade av
+samt insikt i de metoder som använts för att samla data från verkligheten
+ Ex. trafik kring skola – lägg till variabel för veckodag – mer insikt om
+dgp (ex. mer trafik på fredagar)  utvecklar en villkorad stokastisk
+variabel  nå god reliabilitet genom att besluta om rätt mått (ex.
+antal bilar per timme, veckodag)
+ Förståelse för DGP låter oss minimera brus
+3.3 Några vanliga misstag (s.11)
+ Enkla, ogenomtänkta frågor om komplexa företeelser ex. öppet ställda frågor, eller
+svårtolkade frågor i undersökningar
+o Ex. vid frågor om värderingar
+ Om frågan leder mot ett visst svar (då påverkar vi datainsamlingen)  Låg validitet
+ Enkätundersökningar
+ Övertolkning av data: ex. patent vs. Innovationsdata
+ Sänk anspråken om data inte rakt av motsvarar den underliggande storhet vi vill
+undersöka
+o Ex. studien om innovation blir en studie om patent i stället
+o  Kan över tid ske en glidning, där måttet övertar platsen som den storhet vi
+intresserar oss för (tydligt gällande många KPIer)
+3.4 Validitet och urval
+ Construct validity: Att representera en teoretisk storhet med en mätbar storhet på
+ett riktigt sätt – fokus på mått och mätverktyg
+ I vissa sammanhang är det istället urvalet av data som är en främsta utmaningen för
+att uppnå god validitet – hjälper inte att ha perfekt data om den inte representerar
+den grupp eller mängd som ska fångas
+ Antag att gruppen som vi vill undersöka kallas målpopulation.
+ Rampopulation är den grupp som vi kan nå för undersökning
+ Slutligen utgörs vårt urval eller stickprov av data från den grupp från vilken vi lyckas
+få användbara data
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+
+
+
+
+
+Validiteten i datan kommer bero på hur väl stickprovet/urvalet representerar
+målpopulationen
+Ideal: totalundersökning (samtliga i målpopulationen undersöks)
+Nästbäst: Om urvalet inte på viktigt sätt avviker från målpopulationen. Uppnås
+typiskt genom slumpmässig dragning från en rampopulation som är identisk med
+målpopulationen
+Om målpopulationen består av undergrupper med skillnader  Selektionseffekter
+
+3.5 Felaktiga data och rensning
+ Vissa fel: Mätfel, manipulationer och överföring av data  felaktighetrer
+ Händelser som uppstått vid urval  enstaka observationer
+ Oavsett hur fel uppstår  lägre validitet och reliabilitet
+ Ofta svårt att upptäcka fel. Utgångspunkt: titta på outliers (värden som sticker ut)
+och avgöra om dessa går att lita på och därefter justera (behålla/radera)
+ Vanligaste form av justering: winzorizing – höga/låga värden ersätts med ett annat
+värde (ex. ta 90% av värdena som ligger närmast medelvärdet och ersätta med 5e
+percentilens värde respektive 95e percentilens)
+ Gör dock enbart justeringar med utgångfpunkt för vår förstålse för hur datan kom till
+eller för hur felen kom till då de kan påverka analysen
+ ”Ett påstående är bara vetenskapligt om det är falsifierbart, och om det inte är
+falsifierbart säger det inget om verkligheten” – Karl Popper, 1934
+
+Kapitel 4 – Att studera orsak och samband
+
+Analytikers arbete syftar ofta till att utforska möjliga framtider – och där är ”The Scientific
+Method” en guldstandard
+4.1 Ett recept för kunskap
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+
+
+
+
+
+The Scientific method: innebär att analysen formas kring en eller flera hypoteser som
+sätts upp på basen av den bästa tillgängliga kunskapen vi vill studera
+Tumregel: En hypotes ska vara falsifierbar – analytikern ska på förhand kunna uttala
+sig om vilka (ännu oobserverade) empiriska utfall som leder till att hypotesen
+förkastas
+o Detta arbetssätt utgör normen för vetenskapligt arbete inom
+naturvetenskapliga, medicinska och tekniska områden
+o Mer splittrat inom samhällsvetenskap
+ Beror på i vilken mån dessa frågor handlar om att fastställa orsak och
+samband, och vilka typer av frågor denna data ska svara på
+ Beror även på om det är en prediktiv analys
+….
+
+4.2 Ny teknik och gamla principer
+ Principen om den hypotetisk-deduktiva anstatsen är gammal
+ Ny teknik  fler uppgifter kan överlämnas till algoritmer och AI
+ Även om mönster hittas av algoritmer vinner vi inte ny kunskap förrän dessa
+mönster kan omsättas i förklaringar till varför mönstrena uppstår
+4.3 Förutsättningar för kontrafaktisk analys
+ Vilken sorts data behöver vi tillgång till för att testa hypoteser?
+ Grundprincipen: rätt slutsatser om kausalitet kräver kontrafaktisk analys; dvs att vår
+data gör det möjligt att så långt som möjligt analysera hur ett visst utfall hade blivit
+med annan historik
+ Första förutsättning: Data med variation.
+o Särskilt stor variation om det finns stor osäkerhet i mätning eller annan form
+av felkällor och brus kring det samband vi vill studera
+o Vi vill alltså sträva efter så mycket användbar variation som möjligt i
+förhållande till störningar och mätfel
+o Ideala förhållandet kallas för hög signal-to-noise-ratio
+o Standardfelet för en regressionskoefficient för variabeln X bestäms av
+
+
+
+o Viktigt att vara noga med slutsatser med begränsad variaton
+o Validitet gäller bara (som bäst) det intervallet som våra data är hämtade från
+Andra förutsättning: Tillgång till data som så långt som möjligt möjliggöra
+rekonstruktion av ett tänkt orsaks-samband. Två tum-regler för detta
+o (4.3.1) 1: Experimentell data är bättre än kvasi-experimentella data
+o (4.3.2) 2: Paneldata är bättre än tvärsektionell data
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+4.3.1 Experimentella data är bättre än kvasi-experimentella data
+ Experimentella data samlas in genom experiment, i bästa fall en randomiserad
+kontrollstudie (kräver att vi har kontroll över den faktor som undersöks och full
+tillgång till försöksobjekt) – en test-grupp och en kontrollgrupp (ska representera
+kontrafaktiska utfallet)
+ Oftast kan vi inte kontrollera alla nyckelfaktorer och hänvisas till observationsstudier
+ Observationsstudier är näst bäst: insamling av data från en verklighet vi inte
+manipulerat och analyserar den som om den vore experiementell  kallas därför
+Kvasi-experimentell
+o Inte möjligt att isolera faktorer  samla in data på alla andra faktorer som
+påverkar vår beroende variabel och på statistisk väg försöka i efterhand
+isolera samband  Kan på olika sätt rensa bort den trenden för att få kvar
+kontrafaktiska efterfrågan som hade observerats om trenden inte existerat
+ Mellanting mellan experimentell och kvasi-experimentell studie är en analys som kan
+utnyttja ett naturligt experiment
+o Kännetecknas av att systemet i vårt intresse varit utsatt för exogen pvåerkan
+(någon form av förändringar utifrån systemet som påverkat de variabler vi är
+intresserade av)  tar oss närmare en ”allt-annat-lika” situation som kan
+åstadkommas i ett laboratorium
+4.3.2 Paneldata är bättre än tvärsektionell data
+ Panel = Data som är organiserad så att går att studera variation både över
+variationsenehter och över tid
+ Tvärsektionellt dataset = mäter variabler för många observationsenheter men enbart
+vid ett tillfälle
+ Paneldata kan utnyttjas på två sätt:
+o Variation mellan observationsenehter och variation över tid kan användas för
+att skatta samband, och större variation ger mer precisa skattningar
+o Kan även avstå från att analysera skillnader mellan observationsenehter, och
+istället enbart basera sina skattningar på skillnader över tid
+ Fördelen blir att det blir möjligt att isolera alla tidsinvarianta faktorer
+
+Kapitel 5 – Modeller, data och verkligheter (s. 19-23)
+
+
+
+Modell = förenklad representation av komplex och mångtydig verklighet
+”Mentala tumregler” ≈ modeller som representerar erfarenhtet och tolkas som ett
+mönster = Informella modeller
+
+5.1 Vad är en bra modell?
+ Begreppet ”teori” centralt
+ Syftar för analytiker på tillgänglig systematisk förståelse av ett fenomen  Ger
+oss ett angreppssätt, ett perspektiv och en överblick över fenomenet
+ Modell: Konkret manifestation av en teori
+ För att sätta upp en god modell (som hjälper oss förstå verkligeheten) behövs:
+o Grunda den i teoretisk förstelse
+o Avgöra de viktigaste faktorerna är och hur de förhåller sig till varandra
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+
+
+
+
+
+
+
+En bra modell behöver inte beskriva verkligheten exakt, eller vara för detaljerad
+utan den ska så effektivt som möjligt hjälpa oss få syn på intressanta aspekter av
+verkligheten
+Riktlinje: Försök modellera det avgränsade problem som du ska försöka beskriva
+och förstå snarare än verkligheten
+Valet av analysmetod beroende på vilken data vi har: beror på hur man ser på
+förhållandet mellan det som ska förutsägas och den historik som används för att
+leta mönster
+3 typfall:
+o 1. Modellera ett system som fungerar ungefär på det sätt det gjorde
+under den period då data genererades kan man förlita sig på algoritmiska
+metoder (för det mesta maskininlärningsalgoritm)
+ Exempel: Modellera ett rent tekniskt system, prognos med statisk
+metod
+o 2. Modellera ett system som är föränderligt: modellera utifrån teoretisk
+kunskap. Parametrar från tidigare studier och etablerad kunskap, och
+data
+ Exempel: Adaptiva prognosmodeller
+o 3. Modellera och ta fram underliggande principer i data-genererade
+systemet. Parametrar från tidigare studier och etablerad kunskap, och
+data, men här är parametrarna i sig intressanta (snarare än modellen)
+ Exempel: Undersökningar av aspekter av mänskligt beteende eller
+klinisk prövning av ett nytt läkemedel
+I en föränderlig värld behöver vi alltså arbeta teori-drivet för att uppnå god
+reliabilitet och validitet
+
+5.2 Modeller och samband
+ Stokastisk variabel: En grundläggande form av modell
+o Enkel form: utfall beror av fasta parametrar som definierar
+fördelningen
+ Fokus kan även ligga på att fånga samband mellan variabler
+ Kausalt samband i fokus i matematiskt definierade modeller
+5.3 Två sorts orsakssamband
+ Deterministiska kausala samband: ex. Netwons Klassiska Ekvaitoner
+ Alla samband är inte lika regelbundna
+o Exempel: medicin/ekonomi är et bara rimligt att tänka sig statistiskt kausalt
+samband
+ Ex. på statistiskt kausalt samband: 100 barn till föräldrar med höga
+inkomster vs. 100 barn med låga inkomster  Deterministiska
+sambandet ”barn till höginkomsttagare får alltid högre lön än barn till
+låginkomsttagare” är inte rimligt
+ Går oftast inte att dra kausala slutsatser från data, framförallt inte från tvärsekionell
+data
+ Går ej att hävda att: en variabel som är mer statistiskt signifikant korrelerad med Y
+har ett starkare kausalt samband med Y. Däremot gäller det åt andra hållet (Kausalt
+samband innebär förmodligen korrelation)
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+5.4 Olika sorters variabler
+ Variabel: ett centralt begrepp i matematik/statistik
+ Viktigt att förstå vilket utfallsrum som variabeln kan ha
+ Skillnad mellan variabler som antar kvantitativa vs. Kvalitativa värden
+o Kvalitativa utfallsrum med nominell skala: ex. färger, genus – kan
+kategoriseras men saknar skala eller rangordning
+o Vissa har dock en skala: Ex. betyg från A-F (ekvidistanta utfall blir: 5, 4.5, 4
+etc.
+o Kvantitativa utfallsrum kan kodas som siffror: ex. färger som antar värdet 1
+eller 0
+o Kvantitativa utfallsrum kan vara både kontinuerliga och diskreta (antar enbart
+heltalsvärden)
+ Kan även vara relevant att tala om observerade och latenta variabler
+o Observerade värden: koppling mellan data och modell är relativt direkt
+o Latent variabel: en abstraktion – fångar upp en viktig konceptuell faktor som
+är omöjlig att fånga upp i observerade data
+ Ex. mänskliga beteenden
+5.5 Att modellera relationer mellan variabler
+ Hur ser sambandet mellan variablerna ut?
+ 3 Grundläggande Relationer:
+
+
+
+
+o 1. Direkta samband: utfallet av Y beror av utfallet av X.
+o 2. Indirekta medierade samband: utfallet av Y beror av utfallet av Z, som i sin
+tur beror av utfallet av X.
+o 3. Indirekta modererade samband: utfallet av Y beror av utfallet av Z, och
+styrkan av det sambandet beror av utfallet av X
+Enklaste formen i modellering: anta linjärt samband
+Andra alternativ: log-linjärt (om ex. Y är avtagande), Kvadratiskt samband: Y beror av
+X och X^2
+
+5.6 Modellen som analytiskt arbetsredskap
+
+
+Analys som följer grundläggande vetenskaplig (hypotesprövande) metod kan ha flera
+modeller
+o Kan ex. representera etablerad och välbelagd kunskap
+o Flera modeller kan användas för att representera en hypotes  modeller
+som representerar hypoteser som funnit bäst stöd i analysen = resultat och
+utfall av vårt arbete
+
+Kapitel 6 – Att skapa reda i komplexitet
+
+
+Exempel på analys av frukt som äts av slumpmässig grupp under två månader
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+6.1 Enkla medelvärden
+
+
+
+Beräkna medelvärden av fruktkonsumtion för män respektive kvinnor (relativt god validitet
+då det svarar på ursprungliga frågan)
+o Däremot saknas vi andra faktorer som påverkar ex. total konsumtion, inkomst,
+kroppsvikt etc.
+
+6.2 Normering av data
+
+
+
+Ex. studera kvoten fruktkonsumtion i förhållande till total matkonsumtion och hur detta
+skiljer sig mellan könen
+
+6.3 Trimma data
+
+
+
+Trimma stickprovet för att minska inflytandet av faktorer som kan vara korrelerade med den
+variabel som vi är mest intresserade av och samtidigt skilja på könen
+o Ex. om vi tror att kvinnor som tränar minst en gång per vecka äter mer frukt
+o Då kan vi ex. ta bort de som inte tränar alls  Innebär dock att vi enbart har validitet
+för de som tränar och att vi får sämre precision i våra punktskattningar
+
+6.4 Regressionsanalys
+
+
+
+
+
+
+
+
+
+
+Tillämpning av regressionsanalys: modellering av fruktkonsumtion som funktion av kön,
+träningsfrekvens etc.
+Tolkar därefter koefficientestimatet på variabel kön som mått på styrkan av ett eventuellt
+samband mellan kön och preferens för att äta frukt
+Uppmärksamma på: Estimat från enkel linjär regressionsmodell bara är väntevärdesriktiga
+då den oberoende variabel är exogen i sammanhanget (om ytterligare faktorer samvarierar
+den beroende och oberoende variabel lider skattningen av skevhet)
+o Detta kallas för att modellen lider av endogenitetsproblem till följda av ”omitted
+variable bias”
+o Samma typ av problem om beroende variabeln påverkar den oberoende – detta
+kallas simultanitet
+Endogenitet är ett hinder för att etablera orsakssamband
+Experimentell ansats vid endogenitetsproblem
+Ofta används multivariat regressionsanalys vid denna typ av analys (låter oss modellera en
+beroende variabel som funktion av flera faktorer då dessa är mätbara, exogena och vi kan
+samla tillräckligt med data)
+Mer avancerad multivariat regressionsanalys används om endogenitetsproblem föreligger i
+kvasi-experimentell data från observationsstudier
+
+Kapitel 7 – Prediktion
+
+
+
+I många sammanhang är analysarbetet inriktat på prediktioner snarare än orsakverkansamband
+Ex. inom finansiell analys, opinionsundersökningar och meterologi
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+lOMoARcPSD|60122168
+
+7.1 Validering
+
+
+
+
+
+
+God prediktion kräver en modell som ligger nära den datagenererande processen (samt att
+processen inte ändras alltför mycket över tid), men det krävs inga djupare insikter om hur
+modellen fungerar
+o Modellen kan liknas vid en svart låda
+Finns tydligt kriterium för hur väl en viss modell löser uppgiften
+o Bra modell gör precisa prediktioner på ett dataset som den inte tränats på
+o Detta kallas ofta för ”prediktiv förmåga för observationer utanför stickprovet”
+Typiskt arbetssätt: 70% används för skattning och mindre del för utvärdering
+o Validering enligt samma princip används ofta för att jämföra olika modeller – då
+används ofta korsvalidering (tillgängliga datamängden delas in i ett flertal delar som
+sätts ihop till ett flertal olika träningssätt och testset)
+
+7.2 Handlar inte alla analyser om att förutsäga framtiden?
+
+
+
+
+
+
+Vad skiljer egentligen det beskrivande och det normativt preskriptiva från prediktiv analys?
+o Fråga om filosofi och prioriteringar
+Underliggande drivkraft: med viss precision uttala oss om framtida händelser
+Modell som inrymmer väl belagda kausala samband bör också vara bra bas för prediktion
+Enbart prediktiv analys har dock ofta egna metoder (prognosen står i fokus)
+o Grundläggande skillnad: Genom starkare antaganden om stabilitet i DGP kan
+farhågor om validitet läggas åt sidan och reliabilitet kan maximeras
+ Kan dock innebära mycket enkla modeller, men algoritmiskt sökande efter
+en modell med maximal prediktionsförmåga leder ofta till modeller med
+komplex struktur
+
+7.3 Prognosmodeller
+
+
+
+
+Modeller som syftar till att göra prognoser kan beskrivas som ett mellanting mellan rent
+prediktiva och kausala modeller
+Vi utgår i regel från en funktionell form som ges av vår teoretiska förståelse (som i kausala
+modeller)
+o Innebär här att modellera framtida utfall som funktion av givna mönster (tidstrend,
+säsongstrender) i historiska utfall
+o Fördel (i jmf. med black box ansats) är att prognosmakaren kan göra förändringar
+utifrån förståelse av DGP
+o Ex. modellering av efterfrågan av vara efter pandemin: vi kan justera så att förväntan
+inte baserat alltför mycket på föregående år
+
+Downloaded by Ludvig (ludvig.benjaminbergstrom@gmail.com)
+
+
