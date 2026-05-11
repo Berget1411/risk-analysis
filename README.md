@@ -1,21 +1,27 @@
-# Risk Analysis
+# Skadefrekvensanalys - Entreprenadförsäkring
 
-Project repository for the KTH ME1316 analysis of `Entreprenadförsäkring`, focused on claim-frequency modeling and pricing support.
+Project repository for the KTH ME1316 Group 40 analysis of `Entreprenadförsäkring`, focused on claim-frequency modeling and pricing support.
 
 ## Objective
 
-The project is organized around three linked tasks:
+The project is organized around the report question:
+
+> How well can claim counts in entreprenadförsäkring be predicted using customer, business, and insurance data?
+
+The analysis has three linked parts:
 
 1. descriptive analysis of the insurance portfolio
 2. predictive comparison between Poisson-GLM and XGBoost
-3. prescriptive recommendations for pricing, segmentation, and data collection
+3. prescriptive recommendations for pricing, segmentation, uncertainty handling, and data collection
 
-The final modeling goal is to predict the number of claims in the 2025 test portfolio without using that test set for iterative model selection.
+The final modeling goal is to predict claim counts in the 2025 test portfolio. The 2025 file is a final holdout and must not be used for feature selection, tuning, or iterative model choice.
 
 ## Data
 
-- `data/Entreprenadförsäkring training.csv`: development data for 2021-2024
-- `data/Entreprenadförsäkring test.csv`: final 2025 holdout
+- `data/Entreprenadförsäkring training.csv`: development data for 2021-2024, 1,033,386 rows and 19,730 claims
+- `data/Entreprenadförsäkring test.csv`: final 2025 holdout, 291,649 rows and 5,520 claims
+
+Each row represents an insurance contract with `Verksamhet`, `GeografisktOmrade`, `Duration`, `AntalSkador`, `Forsakringsbelopp`, `Omsattning`, and `Sjalvrisk`. The project models claim frequency only, not claim severity.
 
 ## Project Structure
 
@@ -48,23 +54,30 @@ Key predictive artifacts:
 
 ## Current Analysis Status
 
-The analysis track A-F is complete and ready to be synthesized into the report:
+The analysis notebooks are complete and aligned with the report conclusions:
 
 - Poisson-GLM M2 is the recommended main model for pricing because it is interpretable and performs essentially on par with XGBoost.
+- M2 uses `Verksamhet`, `GeografisktOmrade`, `log(Omsattning)`, and `offset(log(Duration))`.
+- `Forsakringsbelopp` and `Sjalvrisk` were tested as robustness checks. They improve fit slightly, but are excluded from the main tariff model because they add overlapping or contract-choice information and reduce interpretability.
 - XGBoost `shallow-fast` is the locked challenger configuration (`max_depth=3`, `learning_rate=0.10`, `num_boost_round=232`).
 - XGBoost is marginally better on Poisson deviance, but the improvement is too small to justify replacing GLM M2 as the main model.
-- 2025 GLM portfolio prediction is about 5,581 claims versus 5,520 observed claims, with a 95% interval of about 5,503-5,659 claims.
+- 2025 GLM portfolio prediction is 5,580.6 claims versus 5,520 observed claims, a portfolio error of +1.10%.
+- 2025 XGBoost portfolio prediction is 5,587.3 claims, a portfolio error of +1.22%.
+- 2025 Poisson deviance is 41,889.2 for GLM M2 and 41,855.7 for XGBoost, an XGBoost improvement of about 0.08%.
+- GLM M2 portfolio uncertainty is about 5,581 claims with a 95% interval of approximately 5,503-5,659 claims.
+- GLM M2 overdispersion check gives Pearson chi-square / degrees of freedom around 0.986, so Poisson is adequate for this analysis.
 
 ## Analysis Workflow
 
 The intended order of work is:
 
 1. validate data quality and produce descriptive figures
-2. build a Poisson-GLM with `Duration` handled as exposure
-3. train an XGBoost challenger on the same information set
-4. compare models on time-ordered validation
-5. evaluate once on the 2025 holdout
-6. summarize uncertainty and business recommendations
+2. build a Poisson-GLM with `Duration` handled as exposure via `offset(log(Duration))`
+3. use `log(Omsattning)` as the locked size feature
+4. train an XGBoost challenger on the same information set as GLM M2
+5. compare models on the time-ordered 2024 validation year
+6. evaluate once on the 2025 holdout
+7. summarize uncertainty and business recommendations
 
 ## Environment
 
