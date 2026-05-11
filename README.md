@@ -79,6 +79,10 @@ The intended order of work is:
 6. evaluate once on the 2025 holdout
 7. summarize uncertainty and business recommendations
 
+## Frontend
+
+A Next.js presentation app lives in `frontend/`, summarizing key results and visualizations from the analysis.
+
 ## Environment
 
 The Python environment lives in `src/` and is managed with `uv`.
