@@ -42,15 +42,15 @@ export const KEY_RESULTS = {
 export const MODEL_SELECTION_TABLE = [
   {
     model: "M0",
-    description: "Medelvärde justerad för duration",
+    description: "Intercept justerad för exponering",
     aic: 141_086,
-    validationDeviance: 41_500,
+    validationDeviance: 42_643,
   },
   {
     model: "M1",
     description: "Verksamhet + Geografi",
     aic: 139_723,
-    validationDeviance: 41_200,
+    validationDeviance: 42_105,
   },
   {
     model: "M2",
@@ -61,7 +61,7 @@ export const MODEL_SELECTION_TABLE = [
   },
   {
     model: "M3",
-    description: "M2 + Självrisk",
+    description: "M2 + log(Självrisk)",
     aic: 136_257,
     validationDeviance: 40_690,
   },
@@ -247,10 +247,9 @@ export const UNCERTAINTY_STATS = {
 };
 
 export const NAV_ITEMS = [
-  { id: "oversikt", label: "Översikt" },
-  { id: "data", label: "Data" },
-  { id: "modell", label: "Modell" },
-  { id: "jamforelse", label: "Jämförelse" },
-  { id: "prissattning", label: "Prissättning" },
+  { id: "inledning", label: "Inledning" },
+  { id: "metod", label: "Metod & Data" },
+  { id: "resultat", label: "Resultat" },
+  { id: "analys", label: "Analys" },
   { id: "slutsats", label: "Slutsats" },
 ];

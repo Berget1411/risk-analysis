@@ -4,86 +4,48 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CheckCircle,
-  TrendingUp,
-  AlertTriangle,
-  Lightbulb,
-  ShieldCheck,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight, Lightbulb } from "lucide-react";
 
 export function ConclusionSection() {
   return (
-    <section className="space-y-8">
+    <section className="space-y-10">
       <div>
         <h2 className="font-heading text-2xl font-bold md:text-3xl">
-          Slutsats & Rekommendationer
+          6. Slutsats
         </h2>
-        <p className="mt-2 text-muted-foreground">
-          Skadefrekvensen kan predikteras väl på portföljnivå. GLM M2 ger
-          bäst balans mellan träffsäkerhet, stabilitet och tolkbarhet för
-          användning i prissättningskontext.
-        </p>
       </div>
 
-      <Card className="border-primary/20">
-        <CardContent className="pt-6">
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
-            <div className="space-y-2">
-              <p className="font-medium">
-                Huvudslutsats: Skadefrekvensen kan förutsägas väl
-              </p>
-              <p className="text-sm text-muted-foreground">
-                GLM M2 predikterade 5 581 skador i 2025-portföljen mot 5 520
-                observerade — portföljfel +1,1%. De viktigaste
-                ratingfaktorerna är omsättning, geografiskt område och
-                verksamhet. XGBoost gav marginellt lägre Poisson deviance men
-                förbättringen (0,08%) var för liten för att motivera modellbyte.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3 pb-2">
-            <CheckCircle className="h-5 w-5 text-primary" />
-            <CardTitle className="text-base">Modellprestanda</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>Portföljfel +1,1%. Konfidensintervallet [5 503–5 658] täcker utfallet.</p>
-            <p>Overdispersion = 0,986 → Poisson-antagandet stödjs.</p>
-            <p>Identisk RMSE/MAE mellan GLM och XGBoost.</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3 pb-2">
-            <TrendingUp className="h-5 w-5 text-primary" />
-            <CardTitle className="text-base">Riskmönster</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>VVS 1,43× och Storstad 1,46× — högsta risknivåer.</p>
-            <p>Omsättning har faktor 5,6 mellan lägsta och högsta decil.</p>
-            <p>Tolkbar i försäkringskontext: fler projekt, fler exponeringspunkter.</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3 pb-2">
-            <AlertTriangle className="h-5 w-5 text-primary" />
-            <CardTitle className="text-base">Begränsningar</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>Enbart skadefrekvens — för fullständig premie behövs skadekostnadsmodell.</p>
-            <p>Artificiell data — onaturligt stabil, varför GLM ≈ XGBoost.</p>
-            <p>Antar att samband 2021–2024 gäller 2025+.</p>
-          </CardContent>
-        </Card>
+      <div className="space-y-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+        <p>
+          Projektets huvudfråga var om skadeantal i entreprenadförsäkring kan
+          förutsägas med kund-, verksamhets- och försäkringsdata, och om XGBoost
+          ger ett tillräckligt mervärde jämfört med en tolkbar Poisson-GLM.
+        </p>
+        <p>
+          Slutsatsen är att skadefrekvensen kan predikteras väl på portföljnivå:
+          GLM M2 predikterade 5 581 skador för 2025 jämfört med 5 520
+          observerade, vilket motsvarar ett portföljfel på +1,1%. De viktigaste
+          ratingfaktorerna är omsättning, geografiskt område och verksamhet.
+          Skillnaderna är tillräckligt tydliga för att motivera
+          premiedifferentiering, men ska tolkas som samband snarare än
+          orsakssamband.
+        </p>
+        <p>
+          XGBoost gav marginellt lägre Poisson deviance än GLM, men förbättringen
+          var för liten för att motivera ett modellbyte. GLM M2 rekommenderas
+          därför som huvudmodell. Den är stabil, transparent och ger rate ratios
+          som kan översättas direkt till prissättnings- och segmenteringsbeslut.
+          XGBoost bör i stället användas som challenger för att följa om mer
+          komplexa samband får större betydelse i framtida data.
+        </p>
+        <p>
+          Analysen har några viktiga begränsningar. Modellen skattar endast
+          skadefrekvens, inte skadekostnad, och räcker därför inte ensam för en
+          fullständig försäkringspremie. Den bygger också på antagandet att
+          sambanden från 2021–2024 är relevanta för 2025 och framåt.
+          Variabelval och jämförelse mellan modellerna påverkas av att datan är
+          syntetisk.
+        </p>
       </div>
 
       <Card>
@@ -97,27 +59,31 @@ export function ConclusionSection() {
           <div className="grid gap-3 text-sm sm:grid-cols-2">
             <div className="flex items-start gap-2">
               <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Använd GLM M2 som primär tariffmodell. Rate ratios översätts direkt till premiejusteringar.</p>
+              <p>
+                Komplettera med en skadekostnadsmodell (severity) för fullständig
+                premieberäkning.
+              </p>
             </div>
             <div className="flex items-start gap-2">
               <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Behåll XGBoost som kontrollmodell. Om framtida data ger större gap, undersök icke-linjära samband.</p>
+              <p>
+                Följ upp modellen årligen och kontrollera stabiliteten vid
+                förändrad inflation eller portföljmix.
+              </p>
             </div>
             <div className="flex items-start gap-2">
               <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Komplettera med skadekostnadsmodell (severity) för fullständig premieberäkning.</p>
+              <p>
+                Utveckla med mer detaljerade variabler: företagsålder,
+                kundspecifik skadehistorik, detaljerad geografi.
+              </p>
             </div>
             <div className="flex items-start gap-2">
               <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Samla in mer detaljerade variabler: företagsålder, kundspecifik skadehistorik, detaljerad geografi.</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Följ upp modellen årligen. Kontrollera om sambanden är stabila vid förändrad inflation eller portföljmix.</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <p>Validera på verklig data. Syntetisk data kan underskatta icke-linjära mönster.</p>
+              <p>
+                Validera på verklig data. Syntetisk data kan underskatta
+                icke-linjära mönster.
+              </p>
             </div>
           </div>
         </CardContent>
@@ -125,19 +91,18 @@ export function ConclusionSection() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Analysflöde (Broström, 2023)</CardTitle>
+          <CardTitle className="text-base">Referenslista</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap items-center gap-2 text-sm">
-            <Badge variant="default">Deskriptiv</Badge>
-            <ArrowRight className="h-3 w-3 text-muted-foreground" />
-            <Badge variant="default">Prediktiv</Badge>
-            <ArrowRight className="h-3 w-3 text-muted-foreground" />
-            <Badge variant="default">Preskriptiv</Badge>
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Beskrivning → Modellering → Rekommendationer. Analyslogiken
-            följer den tredelade strukturen i kurslitteraturen.
+        <CardContent className="space-y-2 text-sm text-muted-foreground">
+          <p>
+            Chen, T. & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting
+            System. <em>Proceedings of the 22nd ACM SIGKDD International
+            Conference on Knowledge Discovery and Data Mining</em>, 785–794.
+          </p>
+          <p>
+            Broström, A. & Wennberg, K. (2023).{" "}
+            <em>Data och modeller – en handbok för analys</em>. Upplaga 1.1.
+            Gleerups.
           </p>
         </CardContent>
       </Card>

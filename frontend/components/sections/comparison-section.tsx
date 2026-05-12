@@ -1,185 +1,153 @@
-"use client";
-
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MODEL_COMPARISON_TABLE, XGBOOST_CONFIGS } from "@/lib/data";
-import { FeatureImportanceChart } from "@/components/charts/feature-importance-chart";
+import { PRICING_EXAMPLE } from "@/lib/data";
 
 export function ComparisonSection() {
   return (
-    <section className="space-y-8">
+    <section className="space-y-10">
       <div>
         <h2 className="font-heading text-2xl font-bold md:text-3xl">
-          Modelljämförelse
+          5. Analys
         </h2>
-        <p className="mt-2 text-muted-foreground">
-          GLM M2 jämförs med XGBoost på testportföljen 2025. Samma
-          informationsset används: Verksamhet, GeografisktOmråde,
-          log(Omsättning) och log(Duration) som exponering.
-        </p>
       </div>
 
-      <Tabs defaultValue="resultat">
-        <TabsList>
-          <TabsTrigger value="resultat">Slutresultat 2025</TabsTrigger>
-          <TabsTrigger value="xgboost">XGBoost-konfigurationer</TabsTrigger>
-        </TabsList>
+      {/* 5.1 Samlad tolkning av riskmönster */}
+      <div className="space-y-4">
+        <h3 className="font-heading text-lg font-semibold md:text-xl">
+          5.1 Samlad tolkning av riskmönster
+        </h3>
+        <div className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p>
+            Resultaten visar att skadefrekvensen inte är jämnt fördelad i
+            entreprenadportföljen. Skillnaderna mellan verksamheter, geografiska
+            områden och omsättningsnivåer är tillräckligt tydliga för att motivera
+            differentierad prissättning. VVS, storstad och hög omsättning
+            framstår som de viktigaste riskhöjande faktorerna.
+          </p>
+          <p>
+            Tolkningen är rimlig i försäkringskontext: större företag har fler
+            projekt och fler exponeringspunkter, medan arbete i storstad och
+            vissa verksamheter kan innebära mer komplexa arbetsmiljöer.
+          </p>
+          <p>
+            Samtidigt ska resultaten tolkas som samband, inte orsakssamband. Att
+            VVS har högre skadefrekvens betyder inte att verksamheten i sig
+            orsakar skador. Skillnaden kan också spegla kundmix, projekttyp,
+            rapporteringsbenägenhet eller säkerhetsrutiner.
+          </p>
+        </div>
+      </div>
 
-        <TabsContent value="resultat" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                Slutgiltig utvärdering — Testår 2025
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Mått</TableHead>
-                      <TableHead className="text-right">GLM M2</TableHead>
-                      <TableHead className="text-right">XGBoost</TableHead>
-                      <TableHead className="text-right">Skillnad</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {MODEL_COMPARISON_TABLE.map((row) => (
-                      <TableRow key={row.metric}>
-                        <TableCell className="font-medium">
-                          {row.metric}
-                        </TableCell>
-                        <TableCell className="text-right font-mono">
-                          {row.glm}
-                        </TableCell>
-                        <TableCell className="text-right font-mono">
-                          {row.xgboost}
-                        </TableCell>
-                        <TableCell className="text-right font-mono text-muted-foreground">
-                          {row.diff}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-              <div className="mt-4 rounded bg-muted/50 p-3 text-sm text-muted-foreground">
-                <strong className="text-foreground">Takeaway:</strong> RMSE och
-                MAE är identiska. XGBoost ger 0,08% bättre deviance men GLM har
-                lägre portföljfel. Skillnaden är för liten för att motivera
-                modellbyte.
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+      {/* 5.2 Modellval */}
+      <div className="space-y-4">
+        <h3 className="font-heading text-lg font-semibold md:text-xl">
+          5.2 Modellval
+        </h3>
+        <div className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p>
+            XGBoost ger något lägre Poisson deviance än GLM, men förbättringen är
+            mycket liten: cirka 0,21% på valideringsåret 2024 och 0,08% på
+            teståret 2025. RMSE och MAE är i princip identiska, och GLM har något
+            lägre portföljfel.
+          </p>
+          <p>
+            GLM M2 bör därför väljas som huvudmodell eftersom den är transparent
+            och direkt användbar i prissättning. Rate ratios kan översättas till
+            premiejusteringar — exempelvis högre premie för VVS, storstad och hög
+            omsättning.
+          </p>
+          <p>
+            XGBoost fyller ändå en viktig roll som jämförelsemodell. Att den
+            flexibla modellen använder samma tre variabler och landar i samma
+            rangordning stärker slutsatsen att GLM fångar portföljens viktigaste
+            riskstruktur. Den bästa XGBoost-modellen använder dessutom grunda
+            träd, vilket tyder på att sambanden i datan till stor del är additiva.
+          </p>
+        </div>
+      </div>
 
-        <TabsContent value="xgboost" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                Sex XGBoost-konfigurationer — Valideringsdeviance 2024
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Konfiguration</TableHead>
-                      <TableHead className="text-right">max_depth</TableHead>
-                      <TableHead className="text-right">learning_rate</TableHead>
-                      <TableHead className="text-right">Träd</TableHead>
-                      <TableHead className="text-right">Val. deviance</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {XGBOOST_CONFIGS.map((row) => (
-                      <TableRow
-                        key={row.config}
-                        className={row.selected ? "bg-primary/5 font-medium" : undefined}
-                      >
-                        <TableCell>
-                          {row.config}
-                          {row.selected && (
-                            <Badge className="ml-2" variant="default">Vald</Badge>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-right font-mono">{row.depth}</TableCell>
-                        <TableCell className="text-right font-mono">{row.lr}</TableCell>
-                        <TableCell className="text-right font-mono">{row.trees}</TableCell>
-                        <TableCell className="text-right font-mono">
-                          {row.deviance.toLocaleString("sv-SE")}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Grundare modeller (depth=3) presterar bäst. Djupare träd ger
-                högre deviance — tyder på att sambanden i datan är additivt
-                snarare än starkt komplexa.
-              </p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      {/* 5.3 Antaganden och begränsningar */}
+      <div className="space-y-4">
+        <h3 className="font-heading text-lg font-semibold md:text-xl">
+          5.3 Antaganden och begränsningar
+        </h3>
+        <div className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p>
+            Poisson-GLM bygger på antagandet att variansen ungefär motsvarar
+            väntevärdet. Överdispersionskontrollen gav en kvot nära 1 (0,986),
+            vilket stödjer att Poisson är ett rimligt val.
+          </p>
+          <p>
+            En central begränsning är att datan är artificiell. Onaturligt stabil
+            data kan förklara varför GLM och XGBoost presterar nästan identiskt.
+            För en rättvisare utvärdering borde modellerna tränas och testas på
+            verkliga data.
+          </p>
+          <p>
+            Den viktigaste begränsningen är att modellen bara beskriver
+            skadefrekvens — den säger inget om skadornas storlek och kan inte
+            ensam ge en fullständig premie. Frekvensmodellen behöver kombineras
+            med en separat modell för skadekostnad.
+          </p>
+          <p>
+            Modellen antar att sambanden från 2021–2024 gäller även 2025.
+            Makroekonomiska förändringar kan fångas av omsättningen, men för att
+            behålla noggrannheten bör modellen följas upp årligen.
+          </p>
+        </div>
+      </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+      {/* 5.4 Praktisk användning och osäkerhet */}
+      <div className="space-y-4">
+        <h3 className="font-heading text-lg font-semibold md:text-xl">
+          5.4 Praktisk användning och osäkerhet
+        </h3>
+        <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+          På portföljnivå är modellen välkalibrerad. GLM predikterar{" "}
+          {PRICING_EXAMPLE.result * 1000 > 0 ? "5 581" : "5 581"} skador för
+          2025 jämfört med 5 520 observerade — portföljfel +1,1%.
+          Konfidensintervallet innehåller det observerade utfallet.
+        </p>
+
+        <Card className="border-primary/20 bg-primary/5">
           <CardHeader>
             <CardTitle className="text-base">
-              Feature Importance (Gain)
+              Exempelprofil: {PRICING_EXAMPLE.verksamhet}-företag i{" "}
+              {PRICING_EXAMPLE.geografi}, 10 MSEK omsättning
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <FeatureImportanceChart />
-            <p className="mt-3 text-xs text-muted-foreground">
-              XGBoost identifierar samma tre drivare i samma rangordning som
-              GLM. log(Omsättning) dominerar, geografi före verksamhet.
+          <CardContent className="space-y-4">
+            <div className="rounded bg-muted px-4 py-3 font-mono text-sm leading-relaxed">
+              <p className="text-muted-foreground">
+                λ = exp(β₀ + β_verksamhet + β_geografi + β_omsättning ·
+                ln(Omsättning)) · Duration
+              </p>
+              <p className="mt-2">
+                = exp(−11,115 + 0,359 + 0,379 + 0,442 · ln(10 000 000)) · 1,0
+              </p>
+              <p className="mt-1">
+                = exp(−3,253) ≈ <strong>0,039</strong>
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Den predikterade frekvensen är ungefär 1,8 gånger portföljens
+              genomsnitt (0,021). I ett bestånd av 100 sådana kontrakt förväntas
+              cirka fyra skador per år. Rate ratios kan på motsvarande sätt
+              användas som multiplikatorer vid premiedifferentiering.
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Analys: Varför GLM vinner</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              <strong className="text-foreground">Identisk rankningsordning</strong> — att ML-modellen landar i samma rangordning stärker
-              förtroendet för GLM:s variabelval.
-            </p>
-            <p>
-              <strong className="text-foreground">Grunda träd bäst</strong> — XGBoost med depth=3 slår depth=5/7,
-              vilket bekräftar att portföljens riskstruktur är i huvudsak additiv.
-            </p>
-            <p>
-              <strong className="text-foreground">Tolkbarhet</strong> — GLM ger rate ratios som direkt
-              översätts till premiejusteringar. XGBoost kräver SHAP-värden
-              för tolkning.
-            </p>
-            <p>
-              <strong className="text-foreground">Slutsats:</strong>{" "}
-              GLM M2 rekommenderas som huvudmodell. XGBoost fyller en viktig
-              roll som kontrollmodell över tid.
-            </p>
-          </CardContent>
-        </Card>
+        <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+          Stora segment (exempelvis byggföretag i storstad) är relativt
+          välkalibrerade och kan användas direkt som tariffstöd, medan mindre
+          segment med bredare konfidensintervall bör justeras med
+          aktuariebedömning.
+        </p>
       </div>
     </section>
   );

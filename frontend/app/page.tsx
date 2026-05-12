@@ -4,7 +4,6 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { DataSection } from "@/components/sections/data-section";
 import { ModelSection } from "@/components/sections/model-section";
 import { ComparisonSection } from "@/components/sections/comparison-section";
-import { PricingSection } from "@/components/sections/pricing-section";
 import { ConclusionSection } from "@/components/sections/conclusion-section";
 import { GITHUB_URL } from "@/lib/data";
 
@@ -12,33 +11,27 @@ export default function Page() {
   return (
     <>
       <NavHeader />
-      <main className="mx-auto max-w-6xl px-4 pb-16 md:px-8">
-        <div id="oversikt" className="scroll-mt-16">
+      <main className="mx-auto max-w-4xl px-4 pb-16 md:px-8">
+        <div id="inledning" className="scroll-mt-16">
           <HeroSection />
         </div>
 
         <Separator className="my-12" />
 
-        <div id="data" className="scroll-mt-16">
+        <div id="metod" className="scroll-mt-16">
           <DataSection />
         </div>
 
         <Separator className="my-12" />
 
-        <div id="modell" className="scroll-mt-16">
+        <div id="resultat" className="scroll-mt-16">
           <ModelSection />
         </div>
 
         <Separator className="my-12" />
 
-        <div id="jamforelse" className="scroll-mt-16">
+        <div id="analys" className="scroll-mt-16">
           <ComparisonSection />
-        </div>
-
-        <Separator className="my-12" />
-
-        <div id="prissattning" className="scroll-mt-16">
-          <PricingSection />
         </div>
 
         <Separator className="my-12" />

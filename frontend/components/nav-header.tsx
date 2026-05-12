@@ -10,7 +10,7 @@ export function NavHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+      <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4 md:px-8">
         <span className="font-heading text-sm font-semibold md:text-base">
           Skadefrekvensanalys
         </span>
